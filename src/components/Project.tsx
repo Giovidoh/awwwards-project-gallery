@@ -3,6 +3,7 @@ import { StaticImageData } from "next/image";
 
 interface ProjectProps {
   project: {
+    id: number;
     title: string;
     description: string;
     src: StaticImageData;
@@ -13,7 +14,15 @@ interface ProjectProps {
 
 const Project: FC<ProjectProps> = ({ project, setModal }) => {
   return (
-    <div className="flex items-center justify-between border-t border-gray-300 py-8 px-16 cursor-pointer transition-all duration-300 hover:px-14 hover:opacity-40 ">
+    <div
+      className="flex items-center justify-between border-t border-gray-300 py-8 px-16 cursor-pointer transition-all duration-300 hover:px-14 hover:opacity-40 "
+      onMouseEnter={() => {
+        setModal({ active: true, index: project.id - 1 });
+      }}
+      onMouseLeave={() => {
+        setModal({ active: false, index: 0 });
+      }}
+    >
       <div className="flex items-center justify-between w-full gap-5">
         <h2 className="text-3xl font-semibold">{project.title}</h2>
         <p>{project.description}</p>

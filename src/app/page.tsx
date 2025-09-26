@@ -12,34 +12,39 @@ import Modal from "@/components/Modal";
 export default function Home() {
   const projects = [
     {
+      id: 1,
       title: "Fortnite",
       description: "Description 1",
       src: fortnite,
-      color: "#000000",
+      color: "#9C141B",
     },
     {
-      title: "Call of Duty",
+      id: 2,
+      title: "Call of Duty Mobile",
       description: "Description 2",
       src: callOfDuty,
-      color: "#333333",
+      color: "#FFE708",
     },
     {
+      id: 3,
       title: "The Finals",
       description: "Description 3",
       src: theFinals,
-      color: "#000000",
+      color: "#615A65",
     },
     {
+      id: 4,
       title: "Apex Legends",
       description: "Description 4",
       src: apexLegends,
       color: "#000000",
     },
     {
+      id: 5,
       title: "GTA V",
       description: "Description 5",
       src: gtaV,
-      color: "#000000",
+      color: "#497C22",
     },
   ];
 

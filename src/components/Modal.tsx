@@ -15,22 +15,26 @@ interface ModalProps {
 }
 
 const Modal: FC<ModalProps> = ({ modal, projects }) => {
+  const translateY = modal.index * -100 + "%";
+
   return (
-    <div className="absolute flex justify-center items-center w-[400px] h-[450px] overflow-hidden">
-      <div className="flex flex-col justify-start w-full h-full">
+    <div className="absolute flex justify-center items-center w-fit h-[250px] overflow-hidden left-1/2 top-0 -translate-x-1/2">
+      <div
+        className="flex flex-col w-full h-full transition-all duration-500 ease-[cubic-bezier(0.76,0,0.24,1)]"
+        style={{ transform: `translateY(${translateY})` }}
+      >
         {projects.map((project, index) => {
           return (
-            <div
-              key={`modal-${index}`}
-              className={`flex items-center justify-center h-[400px]`}
-              style={{ backgroundColor: project.color }}
-            >
-              <div className="relative flex items-center justify-center h-[300px] w-[300px] overflow-hidden">
+            <div key={`modal-${index}`} className={`h-fit w-fit`}>
+              <div
+                className="relative flex items-center justify-center w-[300px] h-[250px] border-30"
+                style={{ borderColor: project.color }}
+              >
                 <Image
                   src={project.src}
                   alt={`${project.title} image`}
-                  width={300}
-                  height={0}
+                  fill
+                  className="h-auto w-auto object-cover object-center"
                 />
               </div>
             </div>
