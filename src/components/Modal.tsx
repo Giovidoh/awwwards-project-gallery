@@ -42,20 +42,20 @@ const Modal: FC<ModalProps> = ({ modal, projects }) => {
     });
 
     const moveViewXTo = gsap.quickTo(viewRef.current, "left", {
-      duration: 0.4,
+      duration: 0.45,
       ease: "power3",
     });
     const moveViewYTo = gsap.quickTo(viewRef.current, "top", {
-      duration: 0.4,
+      duration: 0.45,
       ease: "power3",
     });
 
     const moveViewTextXTo = gsap.quickTo(viewTextRef.current, "left", {
-      duration: 0.5,
+      duration: 0.4,
       ease: "power3",
     });
     const moveViewTextYTo = gsap.quickTo(viewTextRef.current, "top", {
-      duration: 0.5,
+      duration: 0.4,
       ease: "power3",
     });
 
@@ -73,17 +73,58 @@ const Modal: FC<ModalProps> = ({ modal, projects }) => {
     });
   });
 
-  // Modal Scale animation
   useGSAP(() => {
     if (modal.active) {
+      // Modal Scale animation Enter
       gsap.to(modalRef.current, {
         scale: 1,
+        xPercent: -50,
+        yPercent: -50,
+        duration: 0.4,
+        ease: "power3",
+      });
+
+      // View Scale animation Enter
+      gsap.to(viewRef.current, {
+        scale: 1,
+        xPercent: -50,
+        yPercent: -50,
+        duration: 0.4,
+        ease: "power3",
+      });
+
+      // View Text Scale animation Enter
+      gsap.to(viewTextRef.current, {
+        scale: 1,
+        xPercent: -50,
+        yPercent: -50,
         duration: 0.4,
         ease: "power3",
       });
     } else {
+      // Modal Scale animation Exit
       gsap.to(modalRef.current, {
         scale: 0,
+        xPercent: -50,
+        yPercent: -50,
+        duration: 0.4,
+        ease: "power3",
+      });
+
+      // View Scale animation Exit
+      gsap.to(viewRef.current, {
+        scale: 0,
+        xPercent: -50,
+        yPercent: -50,
+        duration: 0.4,
+        ease: "power3",
+      });
+
+      // View Text Scale animation Exit
+      gsap.to(viewTextRef.current, {
+        scale: 0,
+        xPercent: -50,
+        yPercent: -50,
         duration: 0.4,
         ease: "power3",
       });
@@ -91,40 +132,47 @@ const Modal: FC<ModalProps> = ({ modal, projects }) => {
   }, [modal.active]);
 
   return (
-    <div
-      ref={modalRef}
-      className="absolute flex justify-center items-center w-fit h-[250px] overflow-hidden pointer-events-none invisible"
-    >
+    <>
+      <div
+        ref={modalRef}
+        className="absolute flex justify-center items-center w-fit h-[250px] overflow-hidden pointer-events-none invisible"
+      >
+        <div
+          className="flex flex-col w-full h-full transition-all duration-600 ease-[cubic-bezier(0.76,0,0.24,1)]"
+          // Animation of the slide in the modal
+          style={{ transform: `translateY(${translateY})` }}
+        >
+          {projects.map((project, index) => {
+            return (
+              <div key={`modal-${index}`} className={`h-fit w-fit`}>
+                <div
+                  className="relative flex items-center justify-center w-[300px] h-[250px] border-30"
+                  style={{ borderColor: project.color }}
+                >
+                  <Image
+                    src={project.src}
+                    alt={`${project.title} image`}
+                    fill
+                    className="h-auto w-auto object-cover object-center"
+                  />
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
       <div
         ref={viewRef}
-        className="fixed top-0 left-0 bg-blue-500 text-white rounded-full h-20 w-20 flex items-center justify-center z-10"
+        className="absolute top-0 left-0 rounded-full h-20 w-20 flex items-center justify-center pointer-events-none transition-colors duration-300 ease-[cubic-bezier(0.76,0,0.24,1)]"
+        style={{ backgroundColor: projects[modal.index].color }}
+      ></div>
+      <span
+        ref={viewTextRef}
+        className="absolute top-0 left-0 text-white pointer-events-none"
       >
-        <span ref={viewTextRef}>View</span>
-      </div>
-      <div
-        className="flex flex-col w-full h-full transition-all duration-600 ease-[cubic-bezier(0.76,0,0.24,1)]"
-        // Animation of the slide in the modal
-        style={{ transform: `translateY(${translateY})` }}
-      >
-        {projects.map((project, index) => {
-          return (
-            <div key={`modal-${index}`} className={`h-fit w-fit`}>
-              <div
-                className="relative flex items-center justify-center w-[300px] h-[250px] border-30"
-                style={{ borderColor: project.color }}
-              >
-                <Image
-                  src={project.src}
-                  alt={`${project.title} image`}
-                  fill
-                  className="h-auto w-auto object-cover object-center"
-                />
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    </div>
+        View
+      </span>
+    </>
   );
 };
 
