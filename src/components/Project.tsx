@@ -20,7 +20,7 @@ const Project: FC<ProjectProps> = ({ project, setModal }) => {
         setModal({ active: true, index: project.id - 1 });
       }}
       onMouseLeave={() => {
-        setModal({ active: false, index: project.id - 1 });
+        setModal({ active: false, index: 0 });
       }}
     >
       <div className="flex items-center justify-between w-full gap-5">
